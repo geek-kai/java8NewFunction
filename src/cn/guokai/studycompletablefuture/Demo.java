@@ -186,4 +186,24 @@ public class Demo {
         System.out.println("Done in " + duration + " msecs");
 
     }
+
+    /**
+     *
+     */
+    @Test
+    public void test8(){
+
+        long start = System.nanoTime();
+        String gooName="iphoneX";
+        List<CompletableFuture<String>> collect = shops.stream().map(shop -> CompletableFuture.supplyAsync(
+                () -> shop.getShopName() + "%s price is" +
+                        shop.getPrice(gooName),executor)).collect(Collectors.toList());
+        List<String> collect1 = collect.stream().map(CompletableFuture::join).collect(Collectors.toList());
+        for (String s : collect1) {
+            System.out.println(s);
+        }
+        long duration = (System.nanoTime() - start) / 1_000_000;
+        System.out.println("Done in " + duration + " msecs");
+
+    }
 }

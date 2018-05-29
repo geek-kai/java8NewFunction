@@ -49,7 +49,7 @@ public class Shop {
 
     public static void delay() {
         try {
-            Thread.sleep(2000l);
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -62,6 +62,24 @@ public class Shop {
         Random random=new Random();
         return random.nextDouble() * product.charAt(0) + product.charAt(1);
     }
+
+    public String getPriceandDiscountCode(String product) {
+        double price = calculatePrices(product);
+        Random random=new Random();
+        Discount.Code code = Discount.Code.values()[
+                random.nextInt(Discount.Code.values().length)];
+        return String.format("%s:%.2f:%s", shopName, price, code);
+    }
+    private double calculatePrices(String product) {
+        System.out.println(Thread.currentThread().getName()+"模拟shop网络延迟");
+        delay();
+        System.out.println(Thread.currentThread().getName()+"shop延迟结束");
+        Random random=new Random();
+        return random.nextDouble() * product.charAt(0) + product.charAt(1);
+    }
+
+
+
 
 }
 
