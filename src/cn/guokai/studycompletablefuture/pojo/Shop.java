@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Future;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Created by guokai on 2018/5/28.
@@ -49,7 +50,7 @@ public class Shop {
 
     public static void delay() {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -58,8 +59,10 @@ public class Shop {
         return calculatePrice(product);
     }
     private static double calculatePrice(String product) {
-        delay();
+        System.out.println(Thread.currentThread().getName()+"模拟shop网络延迟");
+        randomDelay();
         Random random=new Random();
+        System.out.println(Thread.currentThread().getName()+"shop延迟结束");
         return random.nextDouble() * product.charAt(0) + product.charAt(1);
     }
 
@@ -72,11 +75,23 @@ public class Shop {
     }
     private double calculatePrices(String product) {
         System.out.println(Thread.currentThread().getName()+"模拟shop网络延迟");
-        delay();
+        randomDelay();
         System.out.println(Thread.currentThread().getName()+"shop延迟结束");
         Random random=new Random();
         return random.nextDouble() * product.charAt(0) + product.charAt(1);
     }
+
+    public static void randomDelay() {
+        Random random=new Random();
+        int delay = 500 + random.nextInt(2000);
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 

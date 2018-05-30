@@ -22,7 +22,7 @@ public class Discount {
 
     public static void delay() {
         try {
-            Thread.sleep(2000l);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
